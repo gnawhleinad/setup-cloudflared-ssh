@@ -27,8 +27,8 @@ jobs:
     - uses: actions/checkout@v2
     - uses: ./
       with:
-        clouflared-service-token-id: eyedee
-        clouflared-service-token-secret: PCWCpFx0Zjo
+        cloudflared-service-token-id: eyedee
+        cloudflared-service-token-secret: PCWCpFx0Zjo
         ssh-bastion: sebastion
         ssh-known-hosts: itisknownkhalessi
         ssh-private-key: ${{ steps.keygen.outputs.key }}
