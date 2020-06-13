@@ -47,7 +47,7 @@ Host {{ssh-bastion}}
         IdentityFile ~/.ssh/{{ssh-private-key}}
         ProxyCommand cloudflared access ssh --id {{cloudflared-service-token-id}} --secret {{cloudflared-service-token-secret}} --hostname %h
 
-Host ${SSH_HOSTNAME}
+Host {{ssh-hostname}}
         HostName {{ssh-hostname}}
         Port 22
         IdentityFile ~/.ssh/{{ssh-private-key}}
