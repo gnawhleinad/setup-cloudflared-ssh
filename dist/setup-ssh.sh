@@ -2,6 +2,7 @@
 
 set -euo pipefail
 
+env
 [[ -z "$CLOUDFLARED_SERVICE_TOKEN_ID" ]] || \
   [[ -z "$CLOUDFLARED_SERVICE_TOKEN_SECRET" ]] || \
   [[ -z "$SSH_BASTION" ]] || \
