@@ -25,8 +25,8 @@ chmod 600 "${HOME}/.ssh/${uuid}"
 ssh-keygen -p -P "${SSH_PRIVATE_KEY_PASSPHRASE}" -N "" -f "${HOME}/.ssh/${uuid}"
 
 cat << OHANA_MEANS_FAMILY >> ~/.ssh/config
-Host ${BASTION}
-        HostName ${BASTION}
+Host ${SSH_BASTION}
+        HostName ${SSH_BASTION}
         Port 22
         IdentityFile ~/.ssh/${uuid}
         ProxyCommand 'cloudflared access ssh --id ${CLOUDFLARED_SERVICE_TOKEN_ID} --secret ${CLOUDFLARED_SERVICE_TOKEN_SECRET} --hostname %h'
@@ -35,5 +35,5 @@ Host ${SSH_HOSTNAME}
         HostName ${SSH_HOSTNAME}
         Port 22
         IdentityFile ~/.ssh/${uuid}
-        ProxyJump ${BASTION}
+        ProxyJump ${SSH_BASTION}
 OHANA_MEANS_FAMILY
