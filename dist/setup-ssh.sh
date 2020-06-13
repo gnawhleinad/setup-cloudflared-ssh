@@ -2,14 +2,13 @@
 
 set -euo pipefail
 
-env
-[[ -z "$CLOUDFLARED_SERVICE_TOKEN_ID" ]] || \
-  [[ -z "$CLOUDFLARED_SERVICE_TOKEN_SECRET" ]] || \
-  [[ -z "$SSH_BASTION" ]] || \
-  [[ -z "$SSH_KNOWN_HOSTS" ]] || \
-  [[ -z "$SSH_PRIVATE_KEY" ]] || \
-  [[ -z "$SSH_PRIVATE_KEY_PASSPHRASE" ]] || \
-  [[ -z "$SSH_HOSTNAME" ]] || {
+([ -z ${CLOUDFLARED_SERVICE_TOKEN_ID+x} ] || \
+  [ -z ${CLOUDFLARED_SERVICE_TOKEN_SECRET+x} ] || \
+  [ -z ${SSH_BASTION+x} ] || \
+  [ -z ${SSH_KNOWN_HOSTS+x} ] || \
+  [ -z ${SSH_PRIVATE_KEY+x} ] || \
+  [ -z ${SSH_PRIVATE_KEY_PASSPHRASE+x} ] || \
+  [ -z ${SSH_HOSTNAME+x} ]) && {
   echo "ERROR: missing environment variable"
   exit 1
 }
