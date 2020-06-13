@@ -5,5 +5,6 @@
 }
 
 @test "verify cloudflared --version" {
-  [[ $(cloudflared --version) =~ ^cloudflared version .* ]]
+  version="^cloudflared version .+$"
+  [[ $(cloudflared --version) =~ $version ]]
 }
