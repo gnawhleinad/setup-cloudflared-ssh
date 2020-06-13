@@ -73,7 +73,7 @@ async function setupSsh(configuration: {[key: string]: string}): Promise<void> {
   core.debug(`setting up ssh`)
 
   const options: ExecOptions = {}
-  options.env = configuration
+  options.env = Object.assign(configuration, process.env)
   await exec.exec(path.join(__dirname, 'setup-ssh.sh'), [], options)
 }
 
