@@ -3100,7 +3100,7 @@ function setupSsh(configuration) {
         core.debug(`setting up ssh`);
         const options = {};
         options.env = Object.assign(configuration, process.env);
-        yield exec.exec('bash', ['-x', path.join(__dirname, 'setup-ssh.sh')], options);
+        yield exec.exec('bash', [path.join(__dirname, 'setup-ssh.sh')], options);
     });
 }
 run();

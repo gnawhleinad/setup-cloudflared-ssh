@@ -74,7 +74,7 @@ async function setupSsh(configuration: {[key: string]: string}): Promise<void> {
 
   const options: ExecOptions = {}
   options.env = Object.assign(configuration, process.env)
-  await exec.exec('bash', ['-x', path.join(__dirname, 'setup-ssh.sh')], options)
+  await exec.exec('bash', [path.join(__dirname, 'setup-ssh.sh')], options)
 }
 
 run()
