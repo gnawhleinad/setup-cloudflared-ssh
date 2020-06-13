@@ -19,7 +19,7 @@ chmod 700 ~/.ssh
 
 echo "${SSH_KNOWN_HOSTS}" >> ~/.ssh/known_hosts
 
-uuid="$(< /dev/urandom tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)"
+uuid="$(haveged -n 1000 -f - 2>/dev/null | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)"
 echo -e "${SSH_PRIVATE_KEY}" > "${HOME}/.ssh/${uuid}"
 chmod 600 "${HOME}/.ssh/${uuid}"
 ssh-keygen -p -P "${SSH_PRIVATE_KEY_PASSPHRASE}" -N "" -f "${HOME}/.ssh/${uuid}"
