@@ -56,7 +56,7 @@ async function installCloudflared(): Promise<void> {
 async function downloadCloudflared(version: string): Promise<string> {
   const cloudflared = 'cloudflared'
   const url =
-    'https://bin.equinox.io/c/VdrWdbjqyF/cloudflared-stable-linux-amd64.tgz'
+    'https://bin.equinox.io/a/W8zBUSyawx/cloudflared-2020.6.1-linux-amd64.tar.gz'
   core.debug(`downloading ${url}`)
 
   try {
