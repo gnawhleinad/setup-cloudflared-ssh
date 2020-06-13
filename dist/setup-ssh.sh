@@ -2,13 +2,13 @@
 
 set -euo pipefail
 
-([ -z ${CLOUDFLARED_SERVICE_TOKEN_ID+x} ] || \
+{ [ -z ${CLOUDFLARED_SERVICE_TOKEN_ID+x} ] || \
   [ -z ${CLOUDFLARED_SERVICE_TOKEN_SECRET+x} ] || \
   [ -z ${SSH_BASTION+x} ] || \
   [ -z ${SSH_KNOWN_HOSTS+x} ] || \
   [ -z ${SSH_PRIVATE_KEY+x} ] || \
   [ -z ${SSH_PRIVATE_KEY_PASSPHRASE+x} ] || \
-  [ -z ${SSH_HOSTNAME+x} ]) && {
+  [ -z ${SSH_HOSTNAME+x} ]; } && {
   echo "ERROR: missing environment variable"
   exit 1
 }
@@ -17,7 +17,7 @@ cd
 mkdir -p ~/.ssh
 chmod 700 ~/.ssh
 
-cat "${SSH_KNOWN_HOSTS}" >> ~/.ssh/known_hosts
+echo "${SSH_KNOWN_HOSTS}" >> ~/.ssh/known_hosts
 
 uuid="$(< /dev/urandom tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)"
 cat "${SSH_PRIVATE_KEY}" > "${HOME}/.ssh/${uuid}"
