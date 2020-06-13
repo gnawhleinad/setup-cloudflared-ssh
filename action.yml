@@ -13,7 +13,7 @@ inputs:
   ssh-private-key:
     description: '~/.ssh/{encrypted-key}'
   ssh-passphrase:
-    description: 'passphrase for ~/.ssh/{key}'
+    description: 'passphrase for ~/.ssh/{encrypted-key}'
   ssh-hostname:
     description: 'ssh hostname'
 runs:
