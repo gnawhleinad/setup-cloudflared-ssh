@@ -71,12 +71,12 @@ async function downloadCloudflared(version: string): Promise<string> {
   try {
     const download = await tc.downloadTool(url)
     const extracted = await tc.extractTar(download)
-    const tool = path.join(extracted, cloudflared)
 
     if (version !== 'stable') {
+      const tool = path.join(extracted, cloudflared)
       return await tc.cacheFile(tool, cloudflared, cloudflared, version)
     } else {
-      return tool
+      return extracted
     }
   } catch (err) {
     throw err

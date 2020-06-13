@@ -3096,12 +3096,12 @@ function downloadCloudflared(version) {
         try {
             const download = yield tc.downloadTool(url);
             const extracted = yield tc.extractTar(download);
-            const tool = path.join(extracted, cloudflared);
             if (version !== 'stable') {
+                const tool = path.join(extracted, cloudflared);
                 return yield tc.cacheFile(tool, cloudflared, cloudflared, version);
             }
             else {
-                return tool;
+                return extracted;
             }
         }
         catch (err) {
