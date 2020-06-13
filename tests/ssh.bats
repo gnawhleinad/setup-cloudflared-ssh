@@ -9,7 +9,7 @@
 }
 
 @test "exists ~/.ssh/{key}" {
-  [ $(find ~/.ssh -type f ! -name config -o ! -name known_hosts | wc -l) -eq 1 ]
+  [ $(find ~/.ssh -type f ! -name config -a ! -name known_hosts | wc -l) -eq 1 ]
 }
 
 @test "~/.ssh is 700" {
@@ -17,5 +17,5 @@
 }
 
 @test "~/.ssh/{key} is 600" {
-  [ $(find ~/.ssh -type f ! -name config -o ! -name known_hosts -exec stat --format '%a' {} \;) -eq 600 ]
+  [ $(find ~/.ssh -type f ! -name config -a ! -name known_hosts -exec stat --format '%a' {} \;) -eq 600 ]
 }
