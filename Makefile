@@ -13,7 +13,7 @@ prerequisites:
 .PHONY: tests
 tests: prerequisites
 	bats tests/
-	shellcheck lib/setup-ssh.sh
+	shellcheck dist/setup-ssh.sh
 
 .PHONY: build
 build:
