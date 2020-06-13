@@ -2,6 +2,9 @@ name: 'setup ssh with cloudflared'
 description: 'setup ~/.ssh using cloudflared access service token'
 author: 'gnawhleinad'
 inputs:
+  cloudflared-version:
+    description: 'cloudflared --version'
+    default: 'stable'
   cloudflared-service-token-id:
     description: 'cloudflared access service token id'
   cloudflared-service-token-secret:
