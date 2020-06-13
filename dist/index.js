@@ -3099,7 +3099,7 @@ function setupSsh(configuration) {
     return __awaiter(this, void 0, void 0, function* () {
         core.debug(`setting up ssh`);
         const options = {};
-        options.env = configuration;
+        options.env = Object.assign(configuration, process.env);
         yield exec.exec(path.join(__dirname, 'setup-ssh.sh'), [], options);
     });
 }
