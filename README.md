@@ -52,7 +52,6 @@ Host {{ssh-hostname}}
         Port 22
         IdentityFile ~/.ssh/{{ssh-private-key}}
         ProxyJump %r@{{ssh-bastion}}
-OHANA_MEANS_FAMILY
 ```
 
 see [`dist/setup-ssh.sh`] for more details
