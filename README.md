@@ -1,8 +1,8 @@
 setup `~/.ssh` using [cloudflared access service token] and installs
-[`cloudflared-2020.6.1`]
+[`cloudflared`]
 
 [cloudflared access service token]: https://developers.cloudflare.com/access/service-auth/service-token/
-[`cloudflared-2020.6.1`]: https://github.com/cloudflare/cloudflared/releases/tag/2020.6.1
+[`cloudflared`]: https://github.com/cloudflare/cloudflared
 
 ### `TODO` / limitations
 
@@ -10,12 +10,20 @@ setup `~/.ssh` using [cloudflared access service token] and installs
 - [ ] only works for a single remote machine jumping through a bastion
 - [ ] assumes bastion and remote machine use the same user
 - [ ] assumes private key is encrypted
+- [ ] only works for `linux`
+- [ ] installs [hardcoded version(s)] or the latest from the [`stable` channel]
+
+[hardcoded version(s)]: cloudflared-versions
+[`stable` channel]: https://dl.equinox.io/cloudflare/cloudflared/stable
 
 ### usage
 
 ```yaml
 - uses: gnawhleinad/setup-cloudflared-ssh@v0.0.1
   with:
+    # cloudflared --version (default: stable)
+    cloudflared-version:
+
     # cloudflared access service token id
     cloudflared-service-token-id:
 

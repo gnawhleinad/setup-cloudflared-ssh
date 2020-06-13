@@ -34,18 +34,23 @@ async function run(): Promise<void> {
       required: true
     })
 
-    await installCloudflared()
+    const version = core.getInput('cloudflared-version') || 'stable'
+
+    await installCloudflared(version)
     await setupSsh(configuration)
   } catch (error) {
     core.setFailed(error.message)
   }
 }
 
-async function installCloudflared(): Promise<void> {
-  const version = '2020.6.1'
+async function installCloudflared(version: string): Promise<void> {
   core.debug(`installing cloudflared-${version}`)
 
-  let tool = tc.find('cloudflared', version)
+  let tool = ''
+  if (version !== 'stable') {
+    tool = tc.find('cloudflared', version)
+  }
+
   if (!tool) {
     tool = await downloadCloudflared(version)
   }
@@ -55,15 +60,24 @@ async function installCloudflared(): Promise<void> {
 
 async function downloadCloudflared(version: string): Promise<string> {
   const cloudflared = 'cloudflared'
-  const url =
-    'https://bin.equinox.io/a/W8zBUSyawx/cloudflared-2020.6.1-linux-amd64.tar.gz'
+  let url = 'https://bin.equinox.io'
+  if (version === 'stable') {
+    url += '/c/VdrWdbjqyF/cloudflared-stable-linux-amd64.tgz'
+  } else if (version === '2020.6.1') {
+    url += '/a/W8zBUSyawx/cloudflared-2020.6.1-linux-amd64.tar.gz'
+  }
   core.debug(`downloading ${url}`)
 
   try {
     const download = await tc.downloadTool(url)
     const extracted = await tc.extractTar(download)
-    const tool = path.join(extracted, cloudflared)
-    return await tc.cacheFile(tool, cloudflared, cloudflared, version)
+
+    if (version !== 'stable') {
+      const tool = path.join(extracted, cloudflared)
+      return await tc.cacheFile(tool, cloudflared, cloudflared, version)
+    } else {
+      return extracted
+    }
   } catch (err) {
     throw err
   }

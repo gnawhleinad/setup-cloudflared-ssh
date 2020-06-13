@@ -3060,7 +3060,8 @@ function run() {
             configuration['SSH_HOSTNAME'] = core.getInput('ssh-hostname', {
                 required: true
             });
-            yield installCloudflared();
+            const version = core.getInput('cloudflared-version') || 'stable';
+            yield installCloudflared(version);
             yield setupSsh(configuration);
         }
         catch (error) {
@@ -3068,11 +3069,13 @@ function run() {
         }
     });
 }
-function installCloudflared() {
+function installCloudflared(version) {
     return __awaiter(this, void 0, void 0, function* () {
-        const version = '2020.6.1';
         core.debug(`installing cloudflared-${version}`);
-        let tool = tc.find('cloudflared', version);
+        let tool = '';
+        if (version !== 'stable') {
+            tool = tc.find('cloudflared', version);
+        }
         if (!tool) {
             tool = yield downloadCloudflared(version);
         }
@@ -3082,13 +3085,24 @@ function installCloudflared() {
 function downloadCloudflared(version) {
     return __awaiter(this, void 0, void 0, function* () {
         const cloudflared = 'cloudflared';
-        const url = 'https://bin.equinox.io/c/VdrWdbjqyF/cloudflared-stable-linux-amd64.tgz';
+        let url = 'https://bin.equinox.io';
+        if (version === 'stable') {
+            url += '/c/VdrWdbjqyF/cloudflared-stable-linux-amd64.tgz';
+        }
+        else if (version === '2020.6.1') {
+            url += '/a/W8zBUSyawx/cloudflared-2020.6.1-linux-amd64.tar.gz';
+        }
         core.debug(`downloading ${url}`);
         try {
             const download = yield tc.downloadTool(url);
             const extracted = yield tc.extractTar(download);
-            const tool = path.join(extracted, cloudflared);
-            return yield tc.cacheFile(tool, cloudflared, cloudflared, version);
+            if (version !== 'stable') {
+                const tool = path.join(extracted, cloudflared);
+                return yield tc.cacheFile(tool, cloudflared, cloudflared, version);
+            }
+            else {
+                return extracted;
+            }
         }
         catch (err) {
             throw err;
