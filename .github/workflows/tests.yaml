@@ -1,0 +1,37 @@
+name: tests
+on: [push]
+
+jobs:
+  build:
+    runs-on: [ubuntu-18.04]
+    steps:
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - uses: actions/checkout@v2
+      - run: make build
+  tests:
+    runs-on: [ubuntu-18.04]
+    timeout-minutes: 5
+    outputs:
+      key: ${{ steps.genkey.outputs.key }}
+      passphrase: ${{ steps.genkey.outputs.passphrase }}
+    steps:
+    - id: keygen
+      run: |
+        passphrase="hunter2"
+        ssh-keygen -f hunter2 -N "$passphrase" -t rsa -b 4096
+        echo "::set-output name=key::$(cat hunter2)"
+        echo "::set-output name=passphrase::${passphrase}"
+        rm hunter2*
+    - uses: actions/checkout@v2
+    - uses: ./
+      with:
+        clouflared-service-token-id: eyedee
+        clouflared-service-token-secret: PCWCpFx0Zjo
+        ssh-bastion: sebastion
+        ssh-known-hosts: itisknownkhalessi
+        ssh-private-key: ${{ steps.keygen.outputs.key }}
+        ssh-passphrase: ${{ steps.keygen.outputs.passphrase }}
+        ssh-hostname: emantsoh
+    - run: make tests

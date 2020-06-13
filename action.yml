@@ -1,0 +1,21 @@
+name: 'setup ssh with cloudflared'
+description: 'setup ~/.ssh using cloudflared access service token'
+author: 'gnawhleinad'
+inputs:
+  cloudflared-service-token-id:
+    description: 'cloudflared access service token id'
+  cloudflared-service-token-secret:
+    description: 'cloudflared access service token secret'
+  ssh-bastion:
+    description: 'ssh bastion hostname (cloudflared access hostname)'
+  ssh-known-hosts:
+    description: '~/.ssh/known_hosts'
+  ssh-private-key:
+    description: '~/.ssh/{encrypted-key}'
+  ssh-passphrase:
+    description: 'passphrase for ~/.ssh/{key}'
+  ssh-hostname:
+    description: 'ssh hostname'
+runs:
+  using: 'node12'
+  main: 'dist/index.js'

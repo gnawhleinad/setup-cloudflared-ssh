@@ -1,0 +1,28 @@
+{
+  "name": "setup-cloudflared-ssh",
+  "version": "0.0.1",
+  "description": "setup ~/.ssh using cloudflared access service token",
+  "main": "lib/setup.js",
+  "scripts": {
+    "build": "tsc && ncc build",
+    "format": "prettier --write '**/*.ts'",
+    "format-check": "prettier --check '**/*.ts'",
+    "lint": "eslint src/**/*.ts"
+  },
+  "author": "gnawhleinad",
+  "license": "Unlicense",
+  "dependencies": {
+    "@actions/core": "^1.1.3",
+    "@actions/exec": "^1.0.1",
+    "@actions/tool-cache": "^1.1.2"
+  },
+  "devDependencies": {
+    "@types/node": "^12.7.12",
+    "@typescript-eslint/parser": "^2.8.0",
+    "@zeit/ncc": "^0.20.5",
+    "eslint": "^5.16.0",
+    "eslint-plugin-github": "^2.0.0",
+    "prettier": "^1.19.1",
+    "typescript": "^3.6.4"
+  }
+}
