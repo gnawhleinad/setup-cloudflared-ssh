@@ -1,6 +1,6 @@
 {
   "name": "setup-cloudflared-ssh",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "setup ~/.ssh using cloudflared access service token",
   "main": "lib/setup.js",
   "scripts": {

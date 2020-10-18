@@ -19,7 +19,7 @@ setup `~/.ssh` using [cloudflared access service token] and installs
 ### usage
 
 ```yaml
-- uses: gnawhleinad/setup-cloudflared-ssh@v0.0.2
+- uses: gnawhleinad/setup-cloudflared-ssh@v0.0.3
   with:
     # cloudflared --version (default: stable)
     cloudflared-version: stable
